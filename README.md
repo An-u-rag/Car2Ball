@@ -20,8 +20,8 @@ git clone --branch release_20 https://github.com/Unity-Technologies/ml-agents.gi
 
 *IMPORTANT*: Now you have to replace 2 scripts in the cloned repo from our repo. 
 
-*Car2Ball/etup_replacement/ml-agents/setup.py -> ml-agents/ml-agents/setup.py*
-*Car2Ball/etup_replacement/ml-agents-envs/setup.py -> ml-agents/ml-agents-envs/setup.py*
+*Car2Ball/setup_replacement/ml-agents/setup.py -> ml-agents/ml-agents/setup.py*
+*Car2Ball/setup_replacement/ml-agents-envs/setup.py -> ml-agents/ml-agents-envs/setup.py*
 
 Only after you replace the setup scripts, open a conda terminal and run the below commands inside the conda environment (mlagents) you installed from environment.yml.
 
