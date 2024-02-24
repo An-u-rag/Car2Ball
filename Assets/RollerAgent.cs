@@ -33,17 +33,6 @@ public class RollerAgent : Agent
                                            UnityEngine.Random.value * 8 - 4);
     }
 
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        // Target and Agent positions
-        sensor.AddObservation(Target.localPosition);
-        sensor.AddObservation(this.transform.localPosition);
-
-        // Agent velocity
-        sensor.AddObservation(rBody.velocity.x);
-        sensor.AddObservation(rBody.velocity.z);
-    }
-
     public float forceMultiplier = 10;
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
@@ -56,10 +45,18 @@ public class RollerAgent : Agent
         // Rewards
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
 
+        // floor is side-length of 1 so set reward to 1-dist to target
+        float reward = 1 - distanceToTarget;
+        if (reward < 0)
+        {
+            reward = 0;
+        }
+        AddReward(reward);
+
         // Reached target
         if (distanceToTarget < 1.42f)
         {
-            SetReward(1.0f);
+            AddReward(1.0f);
             EndEpisode();
         }
 
