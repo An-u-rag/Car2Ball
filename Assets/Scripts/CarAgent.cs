@@ -67,8 +67,9 @@ public class CarAgent : Agent
         isBraking = false;
         horizontalInput = actionBuffers.ContinuousActions[0];
         verticalInput = actionBuffers.ContinuousActions[1];
-        brakingInt = actionBuffers.DiscreteActions[0];
-        if (brakingInt == 1) { isBraking = true; }
+        // RC cars do not have brakes. The wheels stop when no forward or backward input is given
+        isBraking = (verticalInput == 0) ? true :isBraking = false;
+
         // update car
         HandleMotor();
         HandleSteering();
@@ -108,12 +109,6 @@ public class CarAgent : Agent
         var discreteActionsOut = actionsOut.DiscreteActions;
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
-        bool braking = Input.GetKey(KeyCode.Space);
-        if (braking) {
-            discreteActionsOut[0] = 1;
-        } else {
-            discreteActionsOut[0] = 0;
-        }
     }
 
     private void HandleMotor()
