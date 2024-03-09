@@ -16,12 +16,12 @@ public class CarAgent : Agent
     private float verticalInput;
     private int brakingInt;
     private bool isBraking;
-    // private float currentBrakeForce;
+    private float currentBrakeForce;
     private float currentSteerAngle;
     private Transform wheelTransform;
 
     [SerializeField] private float motorforce;
-    // [SerializeField] private float brakeForce;
+    [SerializeField] private float brakeForce;
     [SerializeField] private float maxSteeringAngle;
 
     [SerializeField] private WheelCollider frontLeftWheelCollider;
@@ -64,11 +64,11 @@ public class CarAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        // isBraking = false;
+        isBraking = false;
         horizontalInput = actionBuffers.ContinuousActions[0];
         verticalInput = actionBuffers.ContinuousActions[1];
-        // brakingInt = actionBuffers.DiscreteActions[0];
-        // if (brakingInt == 1) { isBraking = true; }
+        brakingInt = actionBuffers.DiscreteActions[0];
+        if (brakingInt == 1) { isBraking = true; }
         // update car
         HandleMotor();
         HandleSteering();
@@ -105,33 +105,45 @@ public class CarAgent : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         var continuousActionsOut = actionsOut.ContinuousActions;
-        // var discreteActionsOut = actionsOut.DiscreteActions;
+        var discreteActionsOut = actionsOut.DiscreteActions;
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
-        // bool braking = Input.GetKey(KeyCode.Space);
-        // if (braking) {
-        //     discreteActionsOut[0] = 1;
-        // }
+        bool braking = Input.GetKey(KeyCode.Space);
+        if (braking) {
+            discreteActionsOut[0] = 1;
+        } else {
+            discreteActionsOut[0] = 0;
+        }
     }
 
     private void HandleMotor()
     {
         rearLeftWheelCollider.motorTorque = verticalInput * motorforce;
         rearRightWheelCollider.motorTorque = verticalInput * motorforce;
-        // currentBrakeForce = isBraking ? brakeForce : 0f;
-        // if (isBraking)
-        // {
-        //     ApplyBraking();
-        // }   
+        currentBrakeForce = isBraking ? brakeForce : 0f;
+        if (isBraking)
+        {
+            ApplyBraking();
+        } else {
+            RemoveBreaking();
+        }
     }
 
-    // private void ApplyBraking()
-    // {
-    //     frontLeftWheelCollider.brakeTorque = currentBrakeForce;
-    //     frontRightWheelCollider.brakeTorque = currentBrakeForce;
-    //     rearLeftWheelCollider.brakeTorque = currentBrakeForce;
-    //     rearRightWheelCollider.brakeTorque = currentBrakeForce;
-    // }
+    private void ApplyBraking()
+    {
+        frontLeftWheelCollider.brakeTorque = currentBrakeForce;
+        frontRightWheelCollider.brakeTorque = currentBrakeForce;
+        rearLeftWheelCollider.brakeTorque = currentBrakeForce;
+        rearRightWheelCollider.brakeTorque = currentBrakeForce;
+    }
+
+    private void RemoveBreaking()
+    {
+        frontLeftWheelCollider.brakeTorque = 0;
+        frontRightWheelCollider.brakeTorque = 0;
+        rearLeftWheelCollider.brakeTorque = 0;
+        rearRightWheelCollider.brakeTorque = 0;
+    }
 
     private void HandleSteering()
     {
