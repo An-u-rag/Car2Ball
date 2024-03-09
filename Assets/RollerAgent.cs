@@ -6,13 +6,16 @@ using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using System;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 public class RollerAgent : Agent
 {
     // Start is called before the first frame update
     Rigidbody rBody;
+    //GameObject Wheel;
     void Start()
     {
+        //Wheel = transform.Find("Wheel").gameObject;
         rBody = GetComponent<Rigidbody>();
     }
 
@@ -46,17 +49,24 @@ public class RollerAgent : Agent
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
 
         // floor is side-length of 1 so set reward to 1-dist to target
-        float reward = 1 - distanceToTarget;
+        float reward=0;
+        UnityEngine.Debug.Log("Distance to Target: " + distanceToTarget);
+
+        if (distanceToTarget >= 1.01f)
+        {
+            reward = 1.0f / (float)(Math.Pow(distanceToTarget - 1, 2.0f));
+        }
+
         if (reward < 0)
         {
             reward = 0;
         }
         AddReward(reward);
+        UnityEngine.Debug.Log("Reward: " + reward);
 
         // Reached target
-        if (distanceToTarget < 1.42f)
+        if (distanceToTarget <= 1.01f)
         {
-            AddReward(1.0f);
             EndEpisode();
         }
 
