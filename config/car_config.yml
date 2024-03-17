@@ -14,8 +14,9 @@ behaviors:
       epsilon_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 128
+      hidden_units: 1024
       num_layers: 5
+      vis_encode_type: simple
     reward_signals:
       extrinsic:
         gamma: 0.99

@@ -551,11 +551,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3874525454889257092, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3874525454889257092, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
       propertyPath: m_BrainParameters.VectorActionSpaceType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874525454889257092, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3874525454889257092, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.size
@@ -634,6 +638,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4761060891778416641, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
+      propertyPath: sensor_range
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761060891778416641, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
       propertyPath: maxSteeringAngle
       value: 45
       objectReference: {fileID: 0}
@@ -652,6 +660,14 @@ PrefabInstance:
     - target: {fileID: 6442512445008891576, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442512445008891576, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
+      propertyPath: m_Grayscale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442512445008891576, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
+      propertyPath: m_ObservationStacks
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6679152013184425114, guid: 5d308811f4fb76d4abc4344a6afedb49, type: 3}
       propertyPath: m_Name

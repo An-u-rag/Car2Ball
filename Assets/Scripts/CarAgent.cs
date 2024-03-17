@@ -23,6 +23,9 @@ public class CarAgent : Agent
     [SerializeField] private float motorforce;
     [SerializeField] private float brakeForce;
     [SerializeField] private float maxSteeringAngle;
+    [SerializeField] private int eps_range;
+    [SerializeField] private float eps_scale;
+    [SerializeField] private int sensor_range;
 
     [SerializeField] private WheelCollider frontLeftWheelCollider;
     [SerializeField] private WheelCollider frontRightWheelCollider;
@@ -60,6 +63,30 @@ public class CarAgent : Agent
         Target.localPosition = new Vector3(UnityEngine.Random.value * 40 - 20,
                                            0.5f,
                                            UnityEngine.Random.value * 40 - 20);
+    }
+
+    public override void CollectObservations(VectorSensor sensor) {
+        RaycastHit hit;
+        float dist;
+        Ray fwd_ray = new Ray(transform.position, Vector3.forward);
+        // add noise to the distance value and scale it by the 
+        int eps = UnityEngine.Random.Range(-1*eps_range, 1*eps_range);
+        if (Physics.Raycast(fwd_ray, out hit, sensor_range)) 
+        {
+            // get distance from raycast hit
+            dist = hit.distance;
+            // add noise to distance
+            dist = dist + (eps*eps_scale*dist);
+        } else {
+            dist = sensor_range + eps;
+        }
+
+        // Pass current car state to model
+        sensor.AddObservation(horizontalInput);
+        sensor.AddObservation(verticalInput);
+        // Pass distance reading to model
+        sensor.AddObservation(dist);
+        // Visual inputs are added automatically by camerasensor component
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
