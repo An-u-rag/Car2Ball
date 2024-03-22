@@ -37,6 +37,8 @@ public class CarGoalAgent : Agent
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+    [SerializeField] private Transform VectorSensorPoint;
+
     [SerializeField] private Transform Arena;
     [SerializeField] private Transform Target;
     [SerializeField] private Transform Goal;
@@ -92,7 +94,7 @@ public class CarGoalAgent : Agent
     public override void CollectObservations(VectorSensor sensor) {
         RaycastHit hit;
         float dist;
-        Ray fwd_ray = new Ray(transform.position, Vector3.forward);
+        Ray fwd_ray = new Ray(VectorSensorPoint.transform.position, VectorSensorPoint.forward);
         // add noise to the distance value and scale it by the 
         int eps = UnityEngine.Random.Range(-1*eps_range, 1*eps_range);
         if (Physics.Raycast(fwd_ray, out hit, sensor_range)) 

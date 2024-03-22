@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.unity.ml-agents": "file:C:/Users/Anurag/ml-agents/com.unity.ml-agents",
-    "com.unity.ml-agents.extensions": "file:C:/Users/Anurag/ml-agents/com.unity.ml-agents.extensions",
+    "com.unity.ml-agents": "file:C:/Users/Anurag/ml-agents-latest_release/com.unity.ml-agents",
+    "com.unity.ml-agents.extensions": "file:C:/Users/Anurag/ml-agents-latest_release/com.unity.ml-agents.extensions",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

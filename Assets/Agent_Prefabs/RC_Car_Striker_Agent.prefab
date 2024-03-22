@@ -754,9 +754,9 @@ GameObject:
   - component: {fileID: 4530830283439317687}
   - component: {fileID: 8751639471715374979}
   - component: {fileID: 4761060891778416641}
-  - component: {fileID: 8904563905693945019}
-  - component: {fileID: 3874525454889257092}
-  - component: {fileID: 6442512445008891576}
+  - component: {fileID: 5393347390728138376}
+  - component: {fileID: 7603441300666514925}
+  - component: {fileID: 8220520567503005565}
   m_Layer: 0
   m_Name: RC_Car_Striker_Agent
   m_TagString: Untagged
@@ -827,6 +827,9 @@ MonoBehaviour:
   motorforce: 1000
   brakeForce: 3000
   maxSteeringAngle: 30
+  eps_range: 0
+  eps_scale: 0
+  sensor_range: 0
   frontLeftWheelCollider: {fileID: 641052707446944739}
   frontRightWheelCollider: {fileID: 768962623544815584}
   rearLeftWheelCollider: {fileID: 2601512913492195244}
@@ -836,7 +839,7 @@ MonoBehaviour:
   rearLeftWheelTransform: {fileID: 4713605753901304288}
   rearRightWheelTransform: {fileID: 656301016623702791}
   Target: {fileID: 0}
---- !u!114 &8904563905693945019
+--- !u!114 &5393347390728138376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -845,30 +848,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6679152013184425114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  TakeActionsBetweenDecisions: 1
---- !u!114 &3874525454889257092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6679152013184425114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Script: {fileID: 11500000, guid: 36aeaee48a79a9e4f9c1d463fb6e90ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 3
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
+      m_NumContinuousActions: 2
       BranchSizes: 01000000
-    VectorActionSize: 01000000
+    VectorActionSize: 
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -881,7 +870,7 @@ MonoBehaviour:
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
---- !u!114 &6442512445008891576
+--- !u!114 &7603441300666514925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -890,14 +879,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 6679152013184425114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
+  m_Script: {fileID: 11500000, guid: 90d28be376b70ec4caa5e0bfe7f45083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 1554941683811431727}
-  m_SensorName: CarCameraSensor
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &8220520567503005565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679152013184425114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be92cf68c18f19d46b4bbcf41a00be31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
+  m_SensorName: CameraSensor
   m_Width: 32
   m_Height: 32
-  m_Grayscale: 0
+  m_Grayscale: 1
   m_ObservationType: 0
   m_RuntimeCameraEnable: 0
   m_ObservationStacks: 1
