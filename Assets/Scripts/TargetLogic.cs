@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TargetLogic : MonoBehaviour
 {
+    private float _wallCollisionTime;
     [SerializeField] GameObject agent;
     void OnTriggerEnter(Collider collider) 
     {
@@ -13,12 +14,26 @@ public class TargetLogic : MonoBehaviour
             agent.GetComponent<CarGoalAgent>().BallInGoal();
         }
     }
+    /*
+    void OnCollisionStay(Collision collision)
+    {
+        //if (collision.gameObject.CompareTag("wall"))
+        //{
+        //    _wallCollisionTime += 1.0f;
+        //    if (_wallCollisionTime >= 500.0f)
+        //    {
+        //        _wallCollisionTime = 0.0f;
+        //        agent.GetComponent<CarGoalAgent>().BallTouchedWall();
+        //    }
+        //}
+    }
 
-    void OnCollisionEnter(Collision collision) 
+    void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("wall"))
         {
-            agent.GetComponent<CarGoalAgent>().BallTouchedWall();
+            _wallCollisionTime = 0.0f;
         }
     }
+    */
 }
